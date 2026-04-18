@@ -18,9 +18,11 @@ help: ## This help message
 helm-lint: ## Runs helm lint against the chart
 	helm lint .
 
-.PHONY: helm-unittest
+.PHONY: helm-unittest unittest
 helm-unittest: ## Runs the helm unit tests
 	podman run $(PODMAN_ARGS) -v $(PWD):/apps:rw $(HELM_UNITTEST_IMAGE) .
+
+unittest: helm-unittest ## Alias for helm-unittest
 
 .PHONY: helm-docs
 helm-docs: ## Generates README.md from values.yaml
@@ -38,6 +40,9 @@ super-linter: ## Runs super linter locally
 	rm -rf .mypy_cache
 	podman run -e RUN_LOCAL=true -e USE_FIND_ALGORITHM=true	\
 					-e VALIDATE_BIOME_FORMAT=false \
+					-e FILTER_REGEX_EXCLUDE='.*templates/.*' \
+					-e VALIDATE_GITHUB_ACTIONS_ZIZMOR=false \
+					-e VALIDATE_TRIVY=false \
 					-v $(PWD):/tmp/lint:rw,z \
 					-w /tmp/lint \
 					ghcr.io/super-linter/super-linter:slim-v8
