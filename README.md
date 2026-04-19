@@ -1,8 +1,8 @@
-# vp-template
+# cluster-pipelines
 
-![Version: 0.0.1](https://img.shields.io/badge/Version-0.0.1-informational?style=flat-square)
+![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square)
 
-A Helm chart to serve as the Validated Patterns Template
+A Helm chart that deploys cluster provisioning pipelines
 
 This chart is used to serve as the template for Validated Patterns Charts
 
