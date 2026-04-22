@@ -30,6 +30,10 @@ spec:
   - name: pullsecret-key-path
     type: string
     default: "pushsecrets/global-pull-secret"
+  - name: cluster-data-namespace
+    description: Hub namespace expected gone before stripping HC finalizers; empty => cluster-<cluster-name>
+    type: string
+    default: ""
   workspaces:
   - name: credentials
     description: Writable workspace for STS creds
@@ -141,6 +145,7 @@ spec:
           #!/bin/bash
           set -euo pipefail
 
+          ENABLE_KAC='{{ include "pipelines.klusterletAddonEnabled" . | trim }}'
           CLUSTER_NAME=$(params.cluster-name)
           TIMEOUT=$(params.timeout-minutes)
 
@@ -150,10 +155,12 @@ spec:
             --wait=true \
             --timeout="${TIMEOUT}m" || true
 
-          echo "Deleting KlusterletAddonConfig..."
-          oc delete klusterletaddonconfig "${CLUSTER_NAME}" \
-            -n "${CLUSTER_NAME}" \
-            --ignore-not-found || true
+          if [ "${ENABLE_KAC}" = "true" ]; then
+            echo "Deleting KlusterletAddonConfig..."
+            oc delete klusterletaddonconfig "${CLUSTER_NAME}" \
+              -n "${CLUSTER_NAME}" \
+              --ignore-not-found || true
+          fi
 
           echo "Cleanup complete"
     params:
@@ -161,3 +168,16 @@ spec:
       value: $(params.cluster-name)
     - name: timeout-minutes
       value: $(params.timeout-minutes)
+
+  - name: clear-hostedcluster-finalizers
+    runAfter:
+    - delete-managed-cluster
+    taskRef:
+      name: hypershift-clear-hostedcluster-finalizers
+    params:
+    - name: cluster-name
+      value: $(params.cluster-name)
+    - name: hosted-cluster-namespace
+      value: {{ .Values.hypershift.hostedClusterNamespace | quote }}
+    - name: cluster-data-namespace
+      value: $(params.cluster-data-namespace)

@@ -1,5 +1,12 @@
 pipelineNamespace: cluster-provisioning
 
+# Hub pattern may pass clusterGroup (namespaces, applications) for conditional behavior.
+clusterGroup: {}
+
+# klusterletAddon.enabled: explicit true/false overrides auto-detection below.
+# When unset, create-klusterlet-addon runs only if clusterGroup lists ACM or the OCM namespace.
+klusterletAddon: {}
+
 serviceAccount:
   create: true
   name: provisioner
@@ -27,6 +34,9 @@ hypershift:
   defaultReplicas: 2
   defaultInstanceType: m5.xlarge
   baseDomain: ""
+  # Namespace of HostedCluster / NodePool CRs on the hub (OpenShift + HyperShift default).
+  hostedClusterNamespace: clusters
+  # destroy: finalizer task treats empty cluster-data-namespace as "cluster-<cluster-name>" on the hub.
 
 hive:
   defaultControlPlaneReplicas: "3"
