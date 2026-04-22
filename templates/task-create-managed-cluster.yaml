@@ -35,8 +35,8 @@ spec:
           clusterGroup: ${CLUSTER_GROUP}
           cluster.open-cluster-management.io/clusterset: default
       spec:
-        hubAcceptsClient: true
         leaseDurationSeconds: 60
       EOF
 
-      echo "ManagedCluster ${CLUSTER_NAME} created"
+      echo "ManagedCluster ${CLUSTER_NAME} applied without spec.hubAcceptsClient (ACM webhook forbids the pipeline SA from setting it)."
+      echo "Cluster admin: accept this cluster in the ACM console (Pending import), or set spec.hubAcceptsClient using credentials that pass the managedclustervalidators webhook."

@@ -1,6 +1,6 @@
 # cluster-pipelines
 
-![Version: 0.0.2](https://img.shields.io/badge/Version-0.0.2-informational?style=flat-square)
+![Version: 0.0.5](https://img.shields.io/badge/Version-0.0.5-informational?style=flat-square)
 
 A Helm chart that deploys cluster provisioning pipelines
 
@@ -10,26 +10,29 @@ This chart is used to serve as the template for Validated Patterns Charts
 
 ## Values
 
-| Key                              | Type   | Default                                                                                  | Description |
-| -------------------------------- | ------ | ---------------------------------------------------------------------------------------- | ----------- |
-| awsCliImage                      | string | `"amazon/aws-cli:latest"`                                                                |             |
-| externalSecrets.awsCreds.key     | string | `"secret/data/hub/aws"`                                                                  |             |
-| externalSecrets.azureCreds.key   | string | `"secret/data/hub/azure"`                                                                |             |
-| externalSecrets.gcpCreds.key     | string | `"secret/data/hub/gcp"`                                                                  |             |
-| externalSecrets.pullSecret.key   | string | `"pushsecrets/global-pull-secret"`                                                       |             |
-| externalSecrets.secretStore.kind | string | `"ClusterSecretStore"`                                                                   |             |
-| externalSecrets.secretStore.name | string | `"vault-backend"`                                                                        |             |
-| hcpImage                         | string | `"image-registry.openshift-image-registry.svc:5000/cluster-provisioning/hcp-cli:latest"` |             |
-| hive.defaultControlPlaneReplicas | string | `"3"`                                                                                    |             |
-| hive.defaultWorkerReplicas       | string | `"3"`                                                                                    |             |
-| hypershift.baseDomain            | string | `""`                                                                                     |             |
-| hypershift.defaultInstanceType   | string | `"m5.xlarge"`                                                                            |             |
-| hypershift.defaultReplicas       | int    | `2`                                                                                      |             |
-| pipelineNamespace                | string | `"cluster-provisioning"`                                                                 |             |
-| serviceAccount.create            | bool   | `true`                                                                                   |             |
-| serviceAccount.name              | string | `"provisioner"`                                                                          |             |
-| serviceAccount.namespace         | string | `"cluster-provisioning"`                                                                 |             |
-| toolsImage                       | string | `"image-registry.openshift-image-registry.svc:5000/openshift/tools"`                     |             |
+| Key                               | Type   | Default                                                                                  | Description |
+| --------------------------------- | ------ | ---------------------------------------------------------------------------------------- | ----------- |
+| awsCliImage                       | string | `"amazon/aws-cli:latest"`                                                                |             |
+| clusterGroup                      | object | `{}`                                                                                     |             |
+| externalSecrets.awsCreds.key      | string | `"secret/data/hub/aws"`                                                                  |             |
+| externalSecrets.azureCreds.key    | string | `"secret/data/hub/azure"`                                                                |             |
+| externalSecrets.gcpCreds.key      | string | `"secret/data/hub/gcp"`                                                                  |             |
+| externalSecrets.pullSecret.key    | string | `"pushsecrets/global-pull-secret"`                                                       |             |
+| externalSecrets.secretStore.kind  | string | `"ClusterSecretStore"`                                                                   |             |
+| externalSecrets.secretStore.name  | string | `"vault-backend"`                                                                        |             |
+| hcpImage                          | string | `"image-registry.openshift-image-registry.svc:5000/cluster-provisioning/hcp-cli:latest"` |             |
+| hive.defaultControlPlaneReplicas  | string | `"3"`                                                                                    |             |
+| hive.defaultWorkerReplicas        | string | `"3"`                                                                                    |             |
+| hypershift.baseDomain             | string | `""`                                                                                     |             |
+| hypershift.defaultInstanceType    | string | `"m5.xlarge"`                                                                            |             |
+| hypershift.defaultReplicas        | int    | `2`                                                                                      |             |
+| hypershift.hostedClusterNamespace | string | `"clusters"`                                                                             |             |
+| klusterletAddon                   | object | `{}`                                                                                     |             |
+| pipelineNamespace                 | string | `"cluster-provisioning"`                                                                 |             |
+| serviceAccount.create             | bool   | `true`                                                                                   |             |
+| serviceAccount.name               | string | `"provisioner"`                                                                          |             |
+| serviceAccount.namespace          | string | `"cluster-provisioning"`                                                                 |             |
+| toolsImage                        | string | `"image-registry.openshift-image-registry.svc:5000/openshift/tools"`                     |             |
 
 ---
 
