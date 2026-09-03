@@ -126,12 +126,6 @@ qeCIPipelines:
       ocp_versions:
         - "4.20"
         - "4.22"
-      # ACM ManagedCluster names for the two DR spokes.
-      # These MUST match clusterOverrides.primary.name / secondary.name in
-      # the pattern's values-cluster-names.yaml so that ACM policies (CA bundle,
-      # DRCluster placement) select the right clusters.
-      spokePrimaryAcmName: ocp-primary
-      spokeSecondaryAcmName: ocp-secondary
       platforms:
         aws:
           # Per-cluster region overrides for the multi-dr flavor.
