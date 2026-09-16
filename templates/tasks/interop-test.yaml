@@ -14,6 +14,9 @@ spec:
     - name: spoke-cluster-name
       type: string
       default: ""
+    - name: spoke-secondary-cluster-name
+      type: string
+      default: ""
     - name: install-status
       type: string
       default: "success"
@@ -33,6 +36,8 @@ spec:
           value: $(workspaces.kubeconfig.path)/$(params.hub-cluster-name)-kubeconfig
         - name: VP_SPOKECONFIG
           value: $(workspaces.kubeconfig.path)/$(params.spoke-cluster-name)-kubeconfig
+        - name: VP_SPOKECONFIG_SECONDARY
+          value: $(workspaces.kubeconfig.path)/$(params.spoke-secondary-cluster-name)-kubeconfig
         - name: TARGET_CLUSTERGROUP
           value: $(params.target-clustergroup)
       script: |
