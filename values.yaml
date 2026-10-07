@@ -178,16 +178,21 @@ qeCIPipelines:
         single:
       extraHelmOpts: "--set global.extraValueFiles[0]=/overrides/values-ci.yaml"
 
-    # travelops:
-    #   repo: https://github.com/validatedpatterns/travelops.git
-    #   flavors:
-    #     - single
+    travelops:
+      repo: https://github.com/validatedpatterns/travelops.git
+      flavors:
+        - single
 
-    # hypershift:
-    #   repo: https://github.com/validatedpatterns-sandbox/hypershift
-    #   flavors:
-    #     - hosted
-    #     - single
+    hypershift:
+      repo: https://github.com/validatedpatterns-sandbox/hypershift
+      flavors:
+        single:
+          clusterGroup: staging
+        hosted:
+          clusterGroup: staging
+      secrets:
+        - hypershift-secret-values-file
+        - hypershift-aws-creds
 
     ragllm:
       repo: https://github.com/validatedpatterns/rag-llm-gitops.git
