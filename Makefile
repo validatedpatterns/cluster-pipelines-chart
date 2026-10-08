@@ -1,5 +1,7 @@
 # https://hub.docker.com/r/helmunittest/helm-unittest/tags/
-HELM_UNITTEST_IMAGE ?= docker.io/helmunittest/helm-unittest:3.14.4-0.5.0
+# https://docs.redhat.com/en/documentation/red_hat_openshift_gitops/1.22/html/release_notes/gitops-release-notes#GitOps-compatibility-support-matrix_gitops-release-notes
+HELM_3_UNITTEST_IMAGE ?= docker.io/helmunittest/helm-unittest:3.19.0-1.0.3
+HELM_4_UNITTEST_IMAGE ?= docker.io/helmunittest/helm-unittest:4.2.4-1.2.1
 HELM_DOCS_IMAGE ?= docker.io/jnorwood/helm-docs:latest
 
 PWD=$(shell pwd)
@@ -20,7 +22,8 @@ helm-lint: ## Runs helm lint against the chart
 
 .PHONY: helm-unittest unittest
 helm-unittest: ## Runs the helm unit tests
-	podman run $(PODMAN_ARGS) -v $(PWD):/apps:rw $(HELM_UNITTEST_IMAGE) .
+	podman run $(PODMAN_ARGS) -v $(PWD):/apps:rw $(HELM_3_UNITTEST_IMAGE) .
+	podman run $(PODMAN_ARGS) -v $(PWD):/apps:rw $(HELM_4_UNITTEST_IMAGE) .
 
 unittest: helm-unittest ## Alias for helm-unittest
 

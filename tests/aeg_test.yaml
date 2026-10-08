@@ -1,0 +1,17 @@
+suite: Test namespace with default values
+templates:
+  - templates/pipelines/standard-pipelines.yaml
+release:
+  name: release-test
+tests:
+  - it: should output  when defined as list
+    documentSelector:
+      path: metadata.labels["pattern.name"]
+      value: ansible-edge
+      matchMany: true
+    isKind:
+      of: Pipeline
+    asserts:
+      - hasDocuments:
+          count: 3 # (platform * versions * flavors)
+          filterAware: true
