@@ -192,7 +192,7 @@ qeCIPipelines:
           clusterGroup: staging
       secrets:
         - hypershift-secret-values-file
-        - hypershift-aws-creds
+        - hypershift-aws-credentials-file
 
     ragllm:
       repo: https://github.com/validatedpatterns/rag-llm-gitops.git
