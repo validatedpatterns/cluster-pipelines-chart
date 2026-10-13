@@ -11,16 +11,14 @@ spec:
     or time out after 15 minutes. On timeout, logs a warning and continues — does not
     fail the pipeline so that interop-test can still run and report partial results.
   params:
-    - name: install-status
-      type: string
-      default: "success"
-      description: Outcome of the install-pattern task. Skips the wait if not "success".
     - name: hub-cluster-name
       type: string
       description: Name of the hub cluster; used to locate its kubeconfig in the kubeconfig workspace.
   workspaces:
     - name: kubeconfig
       description: Workspace containing provisioned cluster kubeconfigs written by provision-cluster.
+    - name: install-results
+      description: Outcome of the install-pattern task. Skips the wait if not "success".
   results:
     - name: outcome
   steps:
@@ -34,8 +32,11 @@ spec:
         set -uo pipefail
         unset KUBERNETES_SERVICE_HOST
 
-        if [ "$(params.install-status)" != "success" ]; then
-          echo "Skipping DR wait: install-pattern did not succeed (status=$(params.install-status))"
+        INSTALL_STATUS=$(cat "$(workspaces.install-results.path)"/status 2>/dev/null)
+        INSTALL_STATUS="${INSTALL_STATUS:-"failed"}"
+
+        if [ "$INSTALL_STATUS" != "success" ]; then
+          echo "Skipping DR wait: install-pattern did not succeed (status=${INSTALL_STATUS})"
           echo -n "skipped" > $(results.outcome.path)
           exit 0
         fi

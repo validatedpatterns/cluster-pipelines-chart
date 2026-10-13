@@ -17,9 +17,6 @@ spec:
     - name: spoke-secondary-cluster-name
       type: string
       default: ""
-    - name: install-status
-      type: string
-      default: "success"
     - name: target-clustergroup
       type: string
       default: hub
