@@ -169,7 +169,8 @@ qeCIPipelines:
     travelops:
       repo: https://github.com/validatedpatterns/travelops.git
       flavors:
-        - single
+        single: {}
+        hosted: {}
 
     hypershift:
       repo: https://github.com/validatedpatterns-sandbox/hypershift

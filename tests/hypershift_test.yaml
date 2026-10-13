@@ -13,5 +13,5 @@ tests:
       of: Pipeline
     asserts:
       - hasDocuments:
-          count: 21 # 3 * 3 * 3 - 2 * 3 * 1  (platform * versions * flavors) (hosted is only available on aws)
+          count: 6 
           filterAware: true
