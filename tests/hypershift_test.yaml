@@ -7,11 +7,11 @@ tests:
   - it: should output  when defined as list
     documentSelector:
       path: metadata.labels["pattern.name"]
-      value: mcg
+      value: hypershift
       matchMany: true
     isKind:
       of: Pipeline
     asserts:
       - hasDocuments:
-          count: 6 
+          count: 12
           filterAware: true
