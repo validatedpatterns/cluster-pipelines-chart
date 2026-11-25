@@ -66,7 +66,7 @@ spec:
     - name: get-uniq-postfix
       params:
       - name: ocp-version
-        value: {{ $ocpVersion }}
+        value: {{ $ocpVersion | quote }}
       - name: platform
         value: {{ $platformName }}
       - name: flavor
@@ -110,6 +110,7 @@ spec:
         spec: {}
         steps:
         - name: generate-cluster-name
+          computeResources: {}
           ref:
             name: generate-cluster-name
           params:
